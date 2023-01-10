@@ -24,4 +24,4 @@ describe('Comandos personalizados do caderno', () => {
         cy.contains('button', 'Editar Item');
         cy.get('[ng-reflect-ng-class=""]');
     })
-});
+})

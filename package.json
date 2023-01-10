@@ -9,6 +9,8 @@
   "author": "Israel Domiciano",
   "license": "ISC",
   "dependencies": {
-    "cypress": "^12.3.0"
+    "cypress": "^12.3.0",
+    "faker": "^6.6.6",
+    "faker-br": "^0.4.1"
   }
 }

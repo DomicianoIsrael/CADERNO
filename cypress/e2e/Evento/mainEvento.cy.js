@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+const faker = require("faker-br");
+
 describe('Teste geral caderno', () => {
 
     beforeEach(() => {
@@ -63,6 +65,17 @@ describe('Teste geral caderno', () => {
         cy.get('div[ng-reflect-tooltip="Usuários"]').click();
         cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/usuario-listar');
         cy.get('h2[class="navbar-brand"]').should('contain', ' Usuários');
+        cy.get('button[class="btn btn-block btn-dark"]').click();
+
+        let fakerBr = require('faker-br');
+        let gerarCpf = faker.br.cpf();
+
+        cy.get('input[name="cpf"]').type(gerarCpf);
+        cy.get('button[class="btn btn-dark text-nowrap"]').click();
+        cy.get('input[name="nome"]').type('UsuárioCypress');
+        cy.get('input[name="senha"]').type('123456');
+        cy.get('button[class="btn btn-dark text-nowrap"]').click();
+        cy.get('button[class="swal2-confirm swal2-styled swal2-default-outline"]').click();
     });
     it('Validar tela de grupos', () => {
         cy.loginCaderno('00000000000', '123456');
