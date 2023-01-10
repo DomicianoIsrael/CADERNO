@@ -61,36 +61,42 @@ describe('Teste geral caderno', () => {
         cy.loginCaderno('00000000000', '123456');
         cy.get('.modal-body > app-seletor-modulo > .row > .col > :nth-child(2) > .seletor-modulo-titulo').click();
         cy.get('div[ng-reflect-tooltip="Usuários"]').click();
+        cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/usuario-listar');
         cy.get('h2[class="navbar-brand"]').should('contain', ' Usuários');
     });
     it('Validar tela de grupos', () => {
         cy.loginCaderno('00000000000', '123456');
         cy.get('.modal-body > app-seletor-modulo > .row > .col > :nth-child(2) > .seletor-modulo-titulo').click();
         cy.contains('span', 'Grupos').click();
+        cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/grupo-listar');
         cy.get('h2[class="navbar-brand"]').should('contain', ' Grupos');
     })
     it('Validar tela de área', () => {
         cy.loginCaderno('00000000000', '123456');
         cy.get('.modal-body > app-seletor-modulo > .row > .col > :nth-child(2) > .seletor-modulo-titulo').click();
         cy.contains('span', 'Áreas').click();
+        cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/area-listar');
         cy.get('h2[class="navbar-brand"]').should('contain', ' Áreas');
     })
     it('Validar tela elmah', () => {
         cy.loginCaderno('00000000000', '123456');
         cy.get('.modal-body > app-seletor-modulo > .row > .col > :nth-child(2) > .seletor-modulo-titulo').click();
         cy.contains('span', ' Elmah erros').click();
+        cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/elmah-errors-listar');
         cy.get('h2[class="navbar-brand"]').should('contain', ' Elmah erros');
     })
     it('Validar tela expurgo', () => {
         cy.loginCaderno('00000000000', '123456');
         cy.get('.modal-body > app-seletor-modulo > .row > .col > :nth-child(2) > .seletor-modulo-titulo').click();
         cy.contains('span', ' Expurgo').click();
+        cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/expurgo-listar');
         cy.get('h2[class="navbar-brand"]').should('contain', ' Expurgo');
     })
     it('Validar tela Log Geral', () => {
         cy.loginCaderno('00000000000', '123456');
         cy.get('.modal-body > app-seletor-modulo > .row > .col > :nth-child(2) > .seletor-modulo-titulo').click();
         cy.contains('span', ' Log Geral').click();
+        cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/log-geral');
         cy.get('h2[class="navbar-brand"]').should('contain', ' Log do sistema');
     })
 })
