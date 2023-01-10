@@ -1,6 +1,8 @@
 /// <reference types="cypress" />
 
-const faker = require("faker-br");
+const faker = require('faker-br');
+
+
 
 describe('Teste geral caderno', () => {
 
@@ -67,7 +69,6 @@ describe('Teste geral caderno', () => {
         cy.get('h2[class="navbar-brand"]').should('contain', ' Usuários');
         cy.get('button[class="btn btn-block btn-dark"]').click();
 
-        let fakerBr = require('faker-br');
         let gerarCpf = faker.br.cpf();
 
         cy.get('input[name="cpf"]').type(gerarCpf);
@@ -76,6 +77,10 @@ describe('Teste geral caderno', () => {
         cy.get('input[name="senha"]').type('123456');
         cy.get('button[class="btn btn-dark text-nowrap"]').click();
         cy.get('button[class="swal2-confirm swal2-styled swal2-default-outline"]').click();
+        cy.get('input[ng-reflect-model="true"]').should('be.checked');
+        cy.get('input[id="administrador"]').should('not.be.checked');
+
+
     });
     it('Validar tela de grupos', () => {
         cy.loginCaderno('00000000000', '123456');
