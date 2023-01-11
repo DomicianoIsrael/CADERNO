@@ -87,7 +87,34 @@ describe('Teste geral caderno', () => {
         cy.get('.modal-body > app-seletor-modulo > .row > .col > :nth-child(2) > .seletor-modulo-titulo').click();
         cy.contains('span', 'Grupos').click();
         cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/grupo-listar');
-        cy.get('h2[class="navbar-brand"]').should('contain', ' Grupos');
+        cy.get('h2[class="navbar-brand"]').should('contain', ' Grupos').wait(1000);
+        cy.get('button[class="btn btn-block btn-dark"]').click();
+
+        cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/grupo-editar');
+        cy.get('input[id="nome"]').type('GrupoCypress')
+        cy.get('button[class="btn btn-dark btn-block"]').click();
+        cy.contains('div', 'Grupo incluído com sucesso.').should("be.visible");
+
+        cy.get('button[class="swal2-confirm swal2-styled swal2-default-outline"]').click();
+        cy.get('.align-self-right > .btn').click();
+        cy.get('input[placeholder="Informe o CPF do usuário"]').type('15275162707');
+        cy.get('button[class="btn btn-dark text-nowrap"]').click();
+        cy.get('button[class="swal2-confirm swal2-styled swal2-default-outline"]').click();
+
+        cy.contains('span', 'Grupos').click();
+        cy.contains('td', 'GrupoCypress')
+            .parent()
+            .find('a.btn.btn-outline-secondary.text-nowrap.ng-star-inserted')
+            .contains('Editar')
+            .click();
+
+        cy.get('button[class="btn btn-outline-danger mr-2"]').click();
+        cy.get('button[class="swal2-confirm swal2-styled swal2-default-outline"]').click();
+        cy.get('button[class="swal2-confirm swal2-styled swal2-default-outline"]').click();
+        cy.get('button[class="btn btn-outline-danger btn-block"]').click();
+        cy.get('button[class="swal2-confirm swal2-styled swal2-default-outline"]').click();
+        cy.get('button[class="swal2-confirm swal2-styled swal2-default-outline"]').click();
+        cy.contains('td', 'GrupoCypress').should("not.exist");
     })
     it('Validar tela de área', () => {
         cy.loginCaderno('00000000000', '123456');
@@ -95,13 +122,41 @@ describe('Teste geral caderno', () => {
         cy.contains('span', 'Áreas').click();
         cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/area-listar');
         cy.get('h2[class="navbar-brand"]').should('contain', ' Áreas');
+        cy.get('button[class="btn btn-block btn-dark"]').click();
+
+        cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/area-editar');
+        cy.get('input[id="rotulo"]').type('cyT');
+        cy.get('input[id="nome"]').type('areaCypress');
+        cy.get('button[class="btn btn-dark btn-block"]').click();
+        cy.get('button[class="swal2-confirm swal2-styled swal2-default-outline"]').click();
+        cy.get('button[class="btn btn-outline-light mr-2 px-4"]').click();
+
+        cy.contains('td', 'areaCypress')
+            .parent()
+            .find('a.btn.btn-outline-secondary.text-nowrap.ng-star-inserted')
+            .contains('Editar')
+            .click();
+        cy.get('button[class="btn btn-outline-danger btn-block"]').click();
+        cy.get('button[class="swal2-confirm swal2-styled swal2-default-outline"]').click();
+        cy.get('button[class="swal2-confirm swal2-styled swal2-default-outline"]').click();
+        cy.contains('td', 'areaCypress').should("not.exist");
+
     })
-    it('Validar tela elmah', () => {
+    it.only('Validar tela elmah', () => {
         cy.loginCaderno('00000000000', '123456');
         cy.get('.modal-body > app-seletor-modulo > .row > .col > :nth-child(2) > .seletor-modulo-titulo').click();
         cy.contains('span', ' Elmah erros').click();
         cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/elmah-errors-listar');
         cy.get('h2[class="navbar-brand"]').should('contain', ' Elmah erros');
+        /* cy.request({
+            method: 'GET',
+            url: 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/ElaboracaoProvaAPI/api/ElmahErrors?errorId=&pagina=1&limitePorPagina=50',
+            headers: { 'Content-Type': 'application/json' },
+            body: { 'param': 'value' }
+        })
+            .its('status')
+            .should('equal', 200) */
+
     })
     it('Validar tela expurgo', () => {
         cy.loginCaderno('00000000000', '123456');
@@ -117,5 +172,8 @@ describe('Teste geral caderno', () => {
         cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/log-geral');
         cy.get('h2[class="navbar-brand"]').should('contain', ' Log do sistema');
     })
+
 })
+
+
 

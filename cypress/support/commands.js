@@ -24,4 +24,10 @@ describe('Comandos personalizados do caderno', () => {
         cy.contains('button', 'Editar Item');
         cy.get('[ng-reflect-ng-class=""]');
     })
+    Cypress.Commands.add('acessarGrupos', () => {
+        cy.loginCaderno('00000000000', '123456');
+        cy.contains('span', 'Grupos').click();
+        cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/grupo-listar');
+        cy.get('h2[class="navbar-brand"]').should('contain', ' Grupos').wait(1000);
+    })
 })
