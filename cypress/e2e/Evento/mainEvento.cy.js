@@ -142,7 +142,7 @@ describe('Teste geral caderno', () => {
         cy.contains('td', 'areaCypress').should("not.exist");
 
     })
-    it.only('Validar tela elmah', () => {
+    it('Validar tela elmah', () => {
         cy.loginCaderno('00000000000', '123456');
         cy.get('.modal-body > app-seletor-modulo > .row > .col > :nth-child(2) > .seletor-modulo-titulo').click();
         cy.contains('span', ' Elmah erros').click();
