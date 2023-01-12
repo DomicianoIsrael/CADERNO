@@ -1,8 +1,5 @@
 /// <reference types="cypress" />
-
 import { br } from 'faker-br';
-
-
 
 describe('Teste geral caderno', () => {
 
@@ -148,14 +145,6 @@ describe('Teste geral caderno', () => {
         cy.contains('span', ' Elmah erros').click();
         cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/elmah-errors-listar');
         cy.get('h2[class="navbar-brand"]').should('contain', ' Elmah erros');
-        /* cy.request({
-            method: 'GET',
-            url: 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/ElaboracaoProvaAPI/api/ElmahErrors?errorId=&pagina=1&limitePorPagina=50',
-            headers: { 'Content-Type': 'application/json' },
-            body: { 'param': 'value' }
-        })
-            .its('status')
-            .should('equal', 200) */
 
     })
     it('Validar tela expurgo', () => {
@@ -172,7 +161,6 @@ describe('Teste geral caderno', () => {
         cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/log-geral');
         cy.get('h2[class="navbar-brand"]').should('contain', ' Log do sistema');
     })
-
 })
 
 
