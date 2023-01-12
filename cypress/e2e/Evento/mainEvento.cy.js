@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-const faker = require('faker-br');
+import { br } from 'faker-br';
 
 
 
@@ -27,7 +27,7 @@ describe('Teste geral caderno', () => {
         cy.get('input[name="codigo"]').type(codigoInvalido);
         cy.get(':nth-child(2) > .ng-dirty > #undefined').select("1: 1");
         cy.get(':nth-child(3) > .ng-dirty > #undefined').select("1: 81");
-        cy.get('button[class="btn btn-dark text-nowrap"]').click();
+        cy.get('button[class="btn btn-dark text-nowrap"]').click().wait(1000);
         //valida não permitir caractere especiais
         cy.contains('div', 'Código do item inválido, não são permitidos caracteres especiais').should("be.visible");
         cy.get('button[class="swal2-confirm swal2-styled swal2-default-outline"]').click();
@@ -69,14 +69,14 @@ describe('Teste geral caderno', () => {
         cy.get('h2[class="navbar-brand"]').should('contain', ' Usuários');
         cy.get('button[class="btn btn-block btn-dark"]').click();
 
-        let gerarCpf = faker.br.cpf();
+        let gerarCpf = br.cpf();
 
         cy.get('input[name="cpf"]').type(gerarCpf);
         cy.get('button[class="btn btn-dark text-nowrap"]').click();
         cy.get('input[name="nome"]').type('UsuárioCypress');
         cy.get('input[name="senha"]').type('123456');
         cy.get('button[class="btn btn-dark text-nowrap"]').click();
-        cy.get('button[class="swal2-confirm swal2-styled swal2-default-outline"]').click();
+        cy.get('button[class="swal2-confirm swal2-styled swal2-default-outline"]').click().wait(1000);
         cy.get('input[ng-reflect-model="true"]').should('be.checked');
         cy.get('input[id="administrador"]').should('not.be.checked');
 
