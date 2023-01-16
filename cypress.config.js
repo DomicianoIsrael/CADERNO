@@ -1,9 +1,10 @@
 const { defineConfig } = require("cypress");
+
 {
   "defaultCommandTimeout"; 10000
 }
-
 {
+
   "reporter"; "mochawesome",
     "reporterOptions"; {
     "reportDir"; "cypress/report/mochawesome-report",
@@ -13,8 +14,6 @@ const { defineConfig } = require("cypress");
             "timestamp"; "mmddyyyy_HHMMss"
   }
 }
-
-
 module.exports = defineConfig({
   projectId: '8wfcym',
   e2e: {
@@ -23,6 +22,5 @@ module.exports = defineConfig({
       // implement node event listeners here
 
     },
-
   },
 });

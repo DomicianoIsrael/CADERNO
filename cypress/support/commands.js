@@ -76,4 +76,9 @@ describe('Comandos personalizados do caderno', () => {
         cy.get(':nth-child(3) > .ng-dirty > #undefined').select("1: 81");
         cy.get('button[class="btn btn-dark text-nowrap"]').click().wait(1000);
     })
-})      
+    Cypress.Commands.add('loginCadernoFalha', (nome, senha) => {
+        cy.get('input[type="text"]').type(nome);
+        cy.get('input[type="password"]').type(senha);
+        cy.get('button[type="submit"]').click();
+    })
+})
