@@ -89,9 +89,9 @@ describe('Comandos personalizados do caderno', () => {
                 cpf: cpf,
                 senha: senha
             }
-        }).its('body.accessToken').should('not.be.null').then(accessToken => {
+        }).then(res => console.log(res))
+        .its('body.accessToken').should('not.be.null').then(accessToken => {
             return accessToken
         })
-        //.then(res => console.log(res))
     })
 })

@@ -58,9 +58,9 @@ describe('Teste geral caderno', () => {
         cy.get('.swal2-confirm').click();
 
     })
-    it('Validar tela de usuário', () => {
+    it.only('Validar tela de usuário', () => {
         cy.loginCaderno('00000000000', '123456');
-        cy.get('.modal-body > app-seletor-modulo > .row > .col > :nth-child(2) > .seletor-modulo-titulo').click();
+        cy.get('.modal-body > app-seletor-modulo > .row > .col > :nth-child(2) > .seletor-modulo-titulo').click().debug();
         cy.get('div[ng-reflect-tooltip="Usuários"]').click();
         cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/usuario-listar');
         cy.get('h2[class="navbar-brand"]').should('contain', ' Usuários');
@@ -161,7 +161,12 @@ describe('Teste geral caderno', () => {
         cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/log-geral');
         cy.get('h2[class="navbar-brand"]').should('contain', ' Log do sistema');
     })
+    
 })
+
+
+
+
 
 
 
