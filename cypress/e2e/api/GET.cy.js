@@ -1,7 +1,6 @@
 describe('API GET', () => {
     beforeEach(() => {
-        cy.visit('/');
-        cy.loginCaderno('00000000000', '123456')
+        cy.getToken('00000000000', '123456')
     })
     it('/api/grupos/ObtemTodos', () => {
         cy.request('GET', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/ElaboracaoProvaAPI/api/grupos/ObtemTodos')
@@ -43,7 +42,7 @@ describe('API GET', () => {
             .its('status')
             .should('equal', 200)
     })
-    it('/ElaboracaoProvaAPI/api/expurgo', () => {
+    it('/ElaboracaoProvaAPI/api/expurgo/paginados', () => {
         cy.request('GET', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/ElaboracaoProvaAPI/api/expurgo/paginados')
             .its('status')
             .should('equal', 200)

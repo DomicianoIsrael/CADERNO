@@ -81,4 +81,17 @@ describe('Comandos personalizados do caderno', () => {
         cy.get('input[type="password"]').type(senha);
         cy.get('button[type="submit"]').click();
     })
+    Cypress.Commands.add('getToken', (cpf, senha) => {
+        cy.request({
+            method: 'post',
+            url: 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/ElaboracaoProvaAPI/api/usuarios/autenticar',
+            body: {
+                cpf: cpf,
+                senha: senha
+            }
+        }).its('body.accessToken').should('not.be.null').then(accessToken => {
+            return accessToken
+        })
+        //.then(res => console.log(res))
+    })
 })
