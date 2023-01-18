@@ -1,5 +1,5 @@
 describe('getToken', () => {
-    it('test', () => {
+    it('Obter o Token', () => {
         cy.request({
             method: 'post',
             url: 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/ElaboracaoProvaAPI/api/usuarios/autenticar',
@@ -8,6 +8,6 @@ describe('getToken', () => {
                 senha: "123456"
             }
         }).its('body.accessToken').should('not.be.null')
-        //.then(res => console.log(res))
+            //.then(res => console.log(res))
     })
 })
