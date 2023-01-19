@@ -8,14 +8,20 @@ describe('Teste geral caderno', () => {
     })
     it('Autenticação -> Módulo evento', () => {
         cy.loginCaderno('00000000000', '123456');
-        cy.get('.modal-body > app-seletor-modulo > .row > .col > :nth-child(2)').click();
+        cy.get('.modal-body > app-seletor-modulo > .row > .col > :nth-child(2)').as('selecionaModuloEventos');
+        cy.get('@selecionaModuloEventos').click();
+
         cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/home-evento');
     })
-    it('US13019 - Criar Item', () => {
+    it.only('US13019 - Criar Item', () => { 
         cy.loginCaderno('00000000000', '123456');
-        cy.get('.modal-body > app-seletor-modulo > .row > .col > :nth-child(2) > .seletor-modulo-titulo').click();
+        cy.get('.modal-body > app-seletor-modulo > .row > .col > :nth-child(2) > .seletor-modulo-titulo').as('selecionaGrupoDefault');
+        cy.get('@selecionaGrupoDefault').click();
         cy.contains('span', 'Eventos').click();
-        cy.get('a[ng-reflect-router-link="/home/evento-editar,57"]').click();
+
+        cy.get('a[ng-reflect-router-link="/home/evento-editar,57"]').as('buttonItemEditar');
+            cy.get('@buttonItemEditar').click();
+
         cy.get('button[class="swal2-confirm swal2-styled swal2-default-outline"]').click();
         cy.contains('span', 'Itens').click();
         cy.get('button[class="btn btn-block btn-dark"]').click();
@@ -58,7 +64,7 @@ describe('Teste geral caderno', () => {
         cy.get('.swal2-confirm').click();
 
     })
-    it.only('Validar tela de usuário', () => {
+    it('Validar tela de usuário', () => {
         cy.loginCaderno('00000000000', '123456');
         cy.get('.modal-body > app-seletor-modulo > .row > .col > :nth-child(2) > .seletor-modulo-titulo').click().debug();
         cy.get('div[ng-reflect-tooltip="Usuários"]').click();
@@ -161,12 +167,33 @@ describe('Teste geral caderno', () => {
         cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/log-geral');
         cy.get('h2[class="navbar-brand"]').should('contain', ' Log do sistema');
     })
-    
+    it('Validar se o token está sendo diferente a cada autenticação', () => {
+        it('Obter o Token', () => {
+            cy.request({
+                method: 'post',
+                url: 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/ElaboracaoProvaAPI/api/usuarios/autenticar',
+                body: {
+                    cpf: "00000000000",
+                    senha: "123456"
+                }
+            }).its('body.accessToken').should('not.be.null').then(accessToken => {
+                return accessToken1
+
+                //.then(res => console.log(res))
+            })
+            cy.request({
+                method: 'post',
+                url: 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/ElaboracaoProvaAPI/api/usuarios/autenticar',
+                body: {
+                    cpf: "00000000000",
+                    senha: "123456"
+                }
+            }).its('body.accessToken').should('not.be.null').then(accessToken => {
+                return accessToken2
+                expect(accessToken1).to.not.equal(accessToken2);
+                //.then(res => console.log(res))
+                
+            })
+        })
+    })
 })
-
-
-
-
-
-
-
