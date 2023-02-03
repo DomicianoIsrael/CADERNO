@@ -1,6 +1,9 @@
 const { defineConfig } = require("cypress");
 
 {
+  "theme"; "dark"
+}
+{
   "defaultCommandTimeout"; 10000
 }
 {

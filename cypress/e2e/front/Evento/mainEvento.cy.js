@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 import { br } from 'faker-br';
+const xpath = require('cypress-xpath');
 
 describe('Teste geral caderno', () => {
 
@@ -13,18 +14,21 @@ describe('Teste geral caderno', () => {
 
         cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/home-evento');
     })
-    it.only('US13019 - Criar Item', () => { 
+    it('US13019 - Criar Item', () => {
         cy.loginCaderno('00000000000', '123456');
         cy.get('.modal-body > app-seletor-modulo > .row > .col > :nth-child(2) > .seletor-modulo-titulo').as('selecionaGrupoDefault');
         cy.get('@selecionaGrupoDefault').click();
         cy.contains('span', 'Eventos').click();
 
         cy.get('a[ng-reflect-router-link="/home/evento-editar,57"]').as('buttonItemEditar');
-            cy.get('@buttonItemEditar').click();
+        cy.get('@buttonItemEditar').click();
 
-        cy.get('button[class="swal2-confirm swal2-styled swal2-default-outline"]').click();
+        cy.get('button[class="swal2-confirm swal2-styled swal2-default-outline"]').as('modalEventoAtivo');
+        cy.get('@modalEventoAtivo').click()
         cy.contains('span', 'Itens').click();
-        cy.get('button[class="btn btn-block btn-dark"]').click();
+
+        cy.get('button[class="btn btn-block btn-dark"]').as('buttonNovoEvento')
+        cy.get('@buttonNovoEvento').click()
 
         const codigoInvalido = 'códigoInvalido!@?';
         cy.get('input[name="codigo"]').type(codigoInvalido);
@@ -38,9 +42,8 @@ describe('Teste geral caderno', () => {
         const randomNumber = Math.floor(Math.random() * 1000) + 1;
         cy.get('input[name="codigo"]').clear().type(randomNumber);
         cy.get('button[class="btn btn-dark text-nowrap"]').click();
-        cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/item-editar/');
-        cy.contains('span', 'Itens').click();
-        cy.get('body').contains(randomNumber).log('Código encontrado');
+        cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/item-editar/').wait(1000);
+
     })
     it('US16827 - Validação das configurações do item', () => {
         cy.loginCaderno('00000000000', '123456');
@@ -66,7 +69,7 @@ describe('Teste geral caderno', () => {
     })
     it('Validar tela de usuário', () => {
         cy.loginCaderno('00000000000', '123456');
-        cy.get('.modal-body > app-seletor-modulo > .row > .col > :nth-child(2) > .seletor-modulo-titulo').click().debug();
+        cy.get('.modal-body > app-seletor-modulo > .row > .col > :nth-child(2) > .seletor-modulo-titulo').click();
         cy.get('div[ng-reflect-tooltip="Usuários"]').click();
         cy.url().should('include', 'http://homologa.elaboracaoprova.intranet.cesgranrio.org.br/elaboracao-prova-client/home/usuario-listar');
         cy.get('h2[class="navbar-brand"]').should('contain', ' Usuários');
@@ -82,8 +85,6 @@ describe('Teste geral caderno', () => {
         cy.get('button[class="swal2-confirm swal2-styled swal2-default-outline"]').click().wait(1000);
         cy.get('input[ng-reflect-model="true"]').should('be.checked');
         cy.get('input[id="administrador"]').should('not.be.checked');
-
-
     });
     it('Validar tela de grupos', () => {
         cy.loginCaderno('00000000000', '123456');
@@ -191,9 +192,21 @@ describe('Teste geral caderno', () => {
             }).its('body.accessToken').should('not.be.null').then(accessToken => {
                 return accessToken2
                 expect(accessToken1).to.not.equal(accessToken2);
-                //.then(res => console.log(res))
-                
+                // valida se é gerado tokens diferentes
             })
         })
+    })
+    it.only('validando tela de blocos', () => {
+        cy.loginCaderno('00000000000', '123456')
+        cy.xpath('//div[@class="modal-body"]//button[2]')
+            .contains('span', 'Eventos')
+            .click();
+        cy.get('a[ng-reflect-tooltip="Trocar Evento"]').click()
+        cy.get('select[id="eventoId"]').select('9: 57')
+        cy.get('button[class="btn btn-dark btn-block mb-2"]').click()
+        cy.xpath('//div[@ng-reflect-tooltip="Blocos"]').click()
+        cy.get('app-botao-adicionar').click()
+        
+
     })
 })

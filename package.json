@@ -9,11 +9,14 @@
   "author": "Israel Domiciano",
   "license": "ISC",
   "dependencies": {
-    "cypress": "^12.3.0",
     "faker": "^6.6.6",
-    "faker-br": "^0.4.1"
+    "faker-br": "^0.4.1",
+    "xpath": "^0.0.32"
   },
   "devDependencies": {
+    "cypress": "^12.5.1",
+    "cypress-dark": "^1.8.3",
+    "cypress-xpath": "^2.0.1",
     "mochawesome": "^7.1.3"
   }
 }
